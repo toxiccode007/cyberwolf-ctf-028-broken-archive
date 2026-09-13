@@ -1,5 +1,5 @@
 from flask import Flask, render_template, send_from_directory
-import os
+from pathlib import Path
 
 app = Flask(__name__)
 
@@ -10,10 +10,10 @@ def index():
 @app.route("/download")
 def download():
     return send_from_directory(
-        os.path.join(app.root_path, "challenge_files"),
+        Path(__file__).parent / "challenge_files",
         "recovered_archive.zip",
         as_attachment=True
     )
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    app.run(host="0.0.0.0", port=5000)
